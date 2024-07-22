@@ -54,24 +54,19 @@ const AppHeader = () => {
           </CHeaderToggler>
           <CHeaderNav className="d-none d-md-flex">
             <CNavItem>
-              <CNavLink to="/dashboard" as={NavLink}>
+              {/* <CNavLink to="/dashboard" as={NavLink}>
                 Dashboard
-              </CNavLink>
-            </CNavItem>
-            <CNavItem>
-              <CNavLink href="#">Users</CNavLink>
-            </CNavItem>
-            <CNavItem>
-              <CNavLink href="#">Settings</CNavLink>
+              </CNavLink> */}
             </CNavItem>
           </CHeaderNav>
           <CHeaderNav className="ms-auto">
-            <CNavItem>
-              <CNavLink href="#">
-                <CIcon icon={cilBell} size="lg" />
-              </CNavLink>
+            <CNavItem className="position-relative" role="button">
+              <CIcon icon={cilBell} size="lg" />
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                9
+              </span>
             </CNavItem>
-            <CNavItem>
+            {/* <CNavItem>
               <CNavLink href="#">
                 <CIcon icon={cilList} size="lg" />
               </CNavLink>
@@ -80,7 +75,7 @@ const AppHeader = () => {
               <CNavLink href="#">
                 <CIcon icon={cilEnvelopeOpen} size="lg" />
               </CNavLink>
-            </CNavItem>
+            </CNavItem> */}
           </CHeaderNav>
           <CHeaderNav>
             <li className="nav-item py-1">
@@ -99,7 +94,7 @@ const AppHeader = () => {
               <CDropdownMenu>
                 <CDropdownItem
                   active={colorMode === 'light'}
-                  className="d-flex align-items-center"
+                  className="d-flex align-items-center account-item"
                   as="button"
                   type="button"
                   onClick={() => setColorMode('light')}
@@ -108,7 +103,7 @@ const AppHeader = () => {
                 </CDropdownItem>
                 <CDropdownItem
                   active={colorMode === 'dark'}
-                  className="d-flex align-items-center"
+                  className="d-flex align-items-center account-item"
                   as="button"
                   type="button"
                   onClick={() => setColorMode('dark')}
@@ -117,7 +112,7 @@ const AppHeader = () => {
                 </CDropdownItem>
                 <CDropdownItem
                   active={colorMode === 'auto'}
-                  className="d-flex align-items-center"
+                  className="d-flex align-items-center account-item"
                   as="button"
                   type="button"
                   onClick={() => setColorMode('auto')}

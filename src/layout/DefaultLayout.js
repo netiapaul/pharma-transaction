@@ -1,7 +1,10 @@
 import React from 'react'
 import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/index'
+import { useSysDefaults } from '../hooks/serviceHooks'
 
 const DefaultLayout = () => {
+  const { isLoadingDefaults, error } = useSysDefaults()
+
   return (
     <div>
       <AppSidebar />

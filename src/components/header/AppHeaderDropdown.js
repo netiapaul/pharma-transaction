@@ -23,60 +23,54 @@ import {
 import CIcon from '@coreui/icons-react'
 
 import avatar8 from './../../assets/images/avatars/8.jpg'
+import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { Logout } from '../../services/systemServices'
 
 const AppHeaderDropdown = () => {
+  const navigate = useNavigate()
+
+  const { isPending, mutate: handleLogOut } = useMutation({
+    mutationKey: ['logout'],
+    mutationFn: Logout,
+    onSuccess: () => {
+      navigate('/', { replace: true })
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+    onSettled: () => {
+      navigate('/', { replace: true })
+    },
+  })
+
+  // const handleLogout = () => {
+  //   navigate('/', { replace: true })
+  // }
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
         <CAvatar src={avatar8} size="md" />
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownHeader className="bg-body-secondary fw-semibold mb-2">Account</CDropdownHeader>
-        <CDropdownItem href="#">
-          <CIcon icon={cilBell} className="me-2" />
-          Updates
-          <CBadge color="info" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilEnvelopeOpen} className="me-2" />
-          Messages
-          <CBadge color="success" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilTask} className="me-2" />
-          Tasks
-          <CBadge color="danger" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownItem href="#">
-          <CIcon icon={cilCommentSquare} className="me-2" />
-          Comments
-          <CBadge color="warning" className="ms-2">
-            42
-          </CBadge>
-        </CDropdownItem>
-        <CDropdownHeader className="bg-body-secondary fw-semibold my-2">Settings</CDropdownHeader>
-        <CDropdownItem href="#">
+        <CDropdownHeader className="bg-body-secondary fw-semibold mb-1">Account</CDropdownHeader>
+        <CDropdownItem className="account-item">
           <CIcon icon={cilUser} className="me-2" />
-          Profile
+          Profile ({JSON.parse(localStorage.getItem('user')).username})
         </CDropdownItem>
-        <CDropdownItem href="#">
+        <CDropdownItem className="account-item">
           <CIcon icon={cilSettings} className="me-2" />
           Settings
         </CDropdownItem>
-        <CDropdownItem href="#">
+        <CDropdownItem className="account-item">
           <CIcon icon={cilCreditCard} className="me-2" />
           Payments
           <CBadge color="secondary" className="ms-2">
             42
           </CBadge>
         </CDropdownItem>
-        <CDropdownItem href="#">
+        <CDropdownItem className="account-item">
           <CIcon icon={cilFile} className="me-2" />
           Projects
           <CBadge color="primary" className="ms-2">
@@ -84,7 +78,7 @@ const AppHeaderDropdown = () => {
           </CBadge>
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href="#">
+        <CDropdownItem className="text-danger account-item" onClick={handleLogOut}>
           <CIcon icon={cilLockLocked} className="me-2" />
           Lock Account
         </CDropdownItem>

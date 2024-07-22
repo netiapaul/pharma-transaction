@@ -16,46 +16,74 @@ import {
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
 const _nav = [
-  {
-    component: CNavItem,
-    name: 'Dashboard',
-    to: '/dashboard',
-    // icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    // icon: mdi-home-analytics,
-    icon: <i className="nav-icon mdi mdi-tablet-dashboard"></i>,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
-  },
-  {
-    component: CNavTitle,
-    name: 'Theme',
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Dashboard',
+  //   to: '/dashboard',
+  //   icon: <i className="nav-icon mdi mdi-tablet-dashboard"></i>,
+  //   badge: {
+  //     color: 'info',
+  //     text: 'NEW',
+  //   },
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Theme',
+  // },
   {
     component: CNavGroup,
-    name: 'Pages',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+    name: 'phAMACore Analysis',
+    icon: <i className="nav-icon mdi mdi-google-analytics"></i>,
     items: [
       {
         component: CNavItem,
-        name: 'Login',
-        to: '/login',
+        name: 'Dashboard',
+        to: '/dashboard',
+        badge: {
+          color: 'info',
+          text: 'NEW',
+        },
       },
       {
         component: CNavItem,
-        name: 'Register',
-        to: '/register',
+        name: 'Profit Picture',
+        to: '/profit-picture/profit-picture',
       },
       {
         component: CNavItem,
-        name: 'Error 404',
-        to: '/404',
+        name: 'Stock Analysis',
+        to: '/stock-analysis/stock-analysis',
       },
       {
         component: CNavItem,
-        name: 'Error 500',
-        to: '/500',
+        name: 'Branch Analysis',
+        to: '/branch-analysis/branch-analysis',
+      },
+      {
+        component: CNavItem,
+        name: 'Cashier Analysis',
+        to: '/dashboard3',
+      },
+      {
+        component: CNavItem,
+        name: 'Daily Reconciliation',
+        to: '/dashboard4',
+      },
+    ],
+  },
+  {
+    component: CNavGroup,
+    name: 'Customer Module',
+    icon: <i className="nav-icon mdi mdi-account-switch-outline"></i>,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Sales Invoice',
+        to: '/sales-invoice/sales-invoice',
+        badge: {
+          color: 'info',
+          text: 'NEW',
+        },
       },
     ],
   },

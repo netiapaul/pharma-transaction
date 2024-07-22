@@ -4,6 +4,8 @@
 $body-bg-color: #eef5f9;
 $template-text-color: #47404f;
 $company-color: #C58C4f;
+$primary-color: #556ee6;
+$secondary-color: #74788d;
 $alternate-primary-color: #5856d6;
 $pragraph-color: #51575d;
 $border-color: #ebebee;
@@ -11,11 +13,119 @@ $danger-color: #ff3547;
 $success-color: #1b9e3e;
 $global-color: #47404f;
 $gray-color: #a1aab2;
+$primereact-color: #0e7490;
 
 body {
     font-family: "Poppins", sans-serif !important;
-    font-size: 12px;
+    font-size: 12px !important;
 }
+
+// div:empty {
+//     background-color: black;
+// }
+
+// .auth-bg-banner {
+//     background-color: #aea29643 !important;
+// }
+
+.system_version {
+    font-size: 10px;
+    // color: $company-color !important;
+}
+
+.border-right {
+    border-right: 1px solid #d8dbe0 !important;
+}
+
+.simplebar-content {
+    background-color: rgb(255, 255, 255) !important
+}
+
+.sidebar-nav .nav-icon {
+    color: rgb(0, 0, 0) !important
+}
+
+.sidebar-nav .nav-link {
+    color: rgb(0, 0, 0) !important
+}
+
+.sidebar-nav .nav-group-toggle::after {
+    color: black !important;
+    font-weight: bold !important;
+    // font-size: 11px !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='rgba%280, 0, 0, '%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+
+}
+
+// .sidebar-nav .nav-group.show>.nav-group-toggle::after {
+//     color: black !important;
+// }
+
+//
+
+.sidebar-nav .nav-link.active {
+    color: #000000 !important;
+    background: rgba(197, 140, 79, 0.1) !important;
+
+    &::before {
+        content: '';
+        position: absolute;
+        right: -18px;
+        background: $company-color;
+        height: 15px;
+        width: 40px;
+        -webkit-transform: rotate(90deg);
+        transform: rotate(-45deg);
+        bottom: 0;
+    }
+}
+
+// .sidebar-nav .nav-link:hover {
+//     color: #000000 !important;
+//     // background: #2a303d !important;
+//     background: rgba(197, 140, 79, 0.1) !important;
+//     // background: $company-color !important;
+// }
+
+.sidebar-nav .nav-link {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    color: #000000;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    transition: .0s;
+    -webkit-transition: .0s;
+
+    &:hover,
+    &:focus {
+        color: $company-color;
+        background: rgba(197, 140, 79, 0.1) !important;
+    }
+
+    //     &:hover .icon,
+    //   &:focus .icon {
+    //       color: $company-color;
+    //   }
+
+    &:hover::before {
+        content: '';
+        position: absolute;
+        right: -18px;
+        background: $company-color;
+        height: 15px;
+        width: 40px;
+        -webkit-transform: rotate(90deg);
+        transform: rotate(-45deg);
+        bottom: 0;
+    }
+}
+
+
+// .sidebar-nav .nav-group.show {
+//     background: rgba(197, 140, 79, 0.100) !important;
+// }
+
 
 // DASHBOARD
 .dashboard-card .card-header {
@@ -35,6 +145,20 @@ body {
 
 // DASHBOARD
 
+// HEADER DROPDOWN
+.account-item {
+    font-size: 12px !important;
+    font-weight: 500;
+}
+
+.account-item:hover {
+    background-color: $company-color !important;
+    cursor: pointer !important;
+    color: white !important;
+
+}
+
+// HEADER DROPDOWN
 .setup {
     background-color: white !important;
     color: black !important;
@@ -44,9 +168,13 @@ body {
     padding: 3px 10px !important;
 }
 
+.not-important {
+    font-size: 10px !important;
+}
+
 input:checked {
-    background-color: #C58C4F !important;
-    border-color: #C58C4F !important;
+    background-color: $company-color !important;
+    border-color: $company-color !important;
 }
 
 .divider {
@@ -76,9 +204,285 @@ input:checked {
     }
 }
 
+.filter-btn {
+    font-size: 11px !important;
+    // border: 1px solid $secondary-color !important;
+    // background-color: $secondary-color !important;
+    color: $company-color !important;
+}
+
+.filter-btn:hover {
+    font-size: 11px !important;
+    border: 1px solid $company-color !important;
+    color: $company-color !important;
+    text-decoration: underline !important;
+    font-weight: 500;
+}
+
+.delete-btn {
+    font-size: 11px !important;
+    border: 1px solid $danger-color !important;
+    color: $danger-color !important;
+}
+
+.delete-btn:hover {
+    font-size: 11px !important;
+    border: 1px solid $danger-color !important;
+    background-color: $danger-color !important;
+    color: white !important;
+    font-weight: 500;
+}
+
+.add-btn {
+    font-size: 11px !important;
+    border: 1px solid $success-color !important;
+    background-color: $success-color !important;
+    color: white !important;
+    // color: $success-color !important;
+}
+
+.add-btn:hover {
+    font-size: 11px !important;
+    border: 1px solid $success-color !important;
+    background-color: $success-color !important;
+    color: white !important;
+    font-weight: 500;
+}
+
+.edit-btn {
+    font-size: 11px !important;
+    border: 1px solid $primary-color !important;
+    // color: $primary-color !important;
+    background-color: $primary-color !important;
+    color: white !important;
+}
+
+.edit-btn:hover {
+    font-size: 11px !important;
+    border: 1px solid $primary-color !important;
+    background-color: $primary-color !important;
+    color: white !important;
+    font-weight: 500;
+}
+
+.print-btn {
+    font-size: 11px !important;
+    border: 1px solid $company-color !important;
+    color: $company-color !important;
+}
+
+.print-btn:hover {
+    font-size: 11px !important;
+    border: 1px solid $company-color !important;
+    background-color: $company-color !important;
+    color: white !important;
+    font-weight: 500;
+}
+
+.close-btn {
+    font-size: 11px !important;
+    // border: 1px solid $secondary-color !important;
+    // color: $secondary-color !important;
+    color: #4f5d73 !important;
+}
+
+.close-btn:hover {
+    font-size: 11px !important;
+    // border: 1px solid #4f5d73 !important;
+    border: 1px solid #4f5d73 !important;
+    color: #4f5d73 !important;
+    font-weight: 500;
+}
+
+.cancel-delete-btn {
+    font-size: 11px !important;
+    border: 1px solid #4f5d73 !important;
+    color: #4f5d73 !important;
+}
+
+.delete-modal-btn {
+    font-size: 11px !important;
+    background-color: $danger-color !important;
+    color: white !important;
+}
+
+.post-modal-btn {
+    font-size: 11px !important;
+    background-color: $success-color !important;
+    color: white !important;
+}
+
+.delete-modal-header {
+    border-bottom: none !important;
+}
+
+.delete-circle {
+    display: inline-block;
+    line-height: 0px;
+    border-radius: 50%;
+    font-size: 32px;
+    background-color: #f3a0a7;
+    color: white;
+}
+
+.delete-circle i {
+    display: inline-block;
+    padding-top: 50%;
+    padding-bottom: 50%;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.post-circle {
+    display: inline-block;
+    line-height: 0px;
+    border-radius: 50%;
+    font-size: 32px;
+    background-color: #85b592;
+    color: white;
+}
+
+.post-circle i {
+    display: inline-block;
+    padding-top: 50%;
+    padding-bottom: 50%;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#packaging,
+.packaging {
+    background-image: none !important;
+    padding-right: 0.5rem !important;
+    // padding: .375rem 2.25rem .375rem .25rem;
+}
+
+.auth-form {
+    font-size: 12px !important;
+    padding: .4375rem .875rem !important;
+}
+
+.auth-form::placeholder {
+    font-size: 12px !important;
+    color: rgb(201, 201, 201) !important;
+}
+
+.auth-button {
+    font-size: 0.9375rem !important;
+    color: #fff !important;
+    background-color: $company-color !important;
+    border-color: $company-color !important;
+    box-shadow: 0 .125rem .25rem 0 rgba(197, 140, 79, .4) !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+.k-input-inner:focus {
+    outline: none !important;
+    /* This removes the default focus outline */
+    border-color: $company-color !important;
+    /* Change the border color to the desired color */
+    box-shadow: 0 0 2px $company-color !important;
+    /* Add a box shadow to enhance the highlight effect */
+}
+
+.col-form-label,
+.form-check-label {
+    font-size: 10px !important;
+}
+
+// .form-control,
+// .form-select,
+.form-control-sm,
+.form-select-sm {
+    font-size: 11px !important;
+}
+
+.react-datepicker-wrapper {
+    display: block !important;
+}
+
+// .MuiInputBase-root {
+//     font-family: "Poppins", sans-serif !important;
+//     font-size: 12px !important;
+//     text-transform: uppercase !important;
+//     padding: 0 4px 0 4px !important;
+// }
+
+// .css-i4bv87-MuiSvgIcon-root {
+//     font-size: 13px !important;
+// }
+
+// .MuiFormLabel-root .MuiInputLabel-root {
+//     font-size: 12px !important;
+// }
+
+// .MuiTable-root {
+//     // border: .5px solid rgba(81, 81, 81, 0) !important;
+//     border: none !important;
+// }
+
+// .MuiTableCell-head {
+//     font-family: "Poppins", sans-serif !important;
+//     font-size: 10px !important;
+//     padding: 5px !important;
+//     // padding-left: 5px !important;
+//     // padding-right: 5px !important;
+//     //
+//     background-color: rgb(229, 229, 229) !important;
+//     font-weight: 600 !important;
+//     border: .25px solid rgb(189, 186, 186) !important;
+//     line-height: 1 !important;
+//     box-shadow: none !important;
+// }
+
+// .MuiTableRow-root td {
+//     font-family: "Poppins", sans-serif !important;
+//     font-size: 10px !important;
+//     padding: 0px !important;
+//     padding-left: 5px !important;
+//     padding-right: 5px !important;
+//     line-height: 2 !important;
+//     border: .25px solid #dedede !important;
+// }
+
+//
+.p-datatable.p-datatable-sm .p-datatable-thead>tr>th {
+    font-family: "Poppins", sans-serif !important;
+    font-size: 10px !important;
+    padding: 0.35rem 0.35rem !important;
+    background-color: rgb(229, 229, 229) !important;
+    color: #000000DE !important;
+}
+
+.p-datatable.p-datatable-sm .p-datatable-tbody>tr>td {
+    font-family: "Poppins", sans-serif !important;
+    font-size: 10px !important;
+    padding: 0.25rem 0.25rem !important;
+    color: #000000DE !important;
+}
+
+.p-datatable .p-datatable-tbody>tr.p-highlight {
+    background: rgba(200, 194, 189, 0.5) !important;
+    font-weight: 600 !important;
+    // color: #0e7490 !important;
+}
+
+.p-datatable.p-datatable-selectable .p-datatable-tbody>tr.p-selectable-row:focus-visible {
+    // outline: 0.15rem solid #c8bdb1 !important;
+    outline: 0.15rem solid $company-color !important;
+    outline-offset: -0.15rem;
+}
+
+.p-datatable .p-datatable-tbody>tr>td {
+    border: 1px solid #e5e7eb;
+}
+
+
 // FOOTER
+
 .footer-link {
-    color: #C58C4F !important;
+    color: $company-color !important;
 }
 
 // FOOTER
