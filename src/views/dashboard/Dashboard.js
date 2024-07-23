@@ -181,7 +181,7 @@ function salesDashboard() {
       <DashboardAnalysisFilters isPending={isPending} HandleSubmit={HandleSubmit} />
       <div className="row">
         <div className="col">
-          <div className="card h-100">
+          <div className="card h-100 shadow-sm">
             <div className="card-body">
               <h6 className="fw-semibold text-success mb-2">Revenue</h6>
               <h4 className="fw-medium">
@@ -217,7 +217,7 @@ function salesDashboard() {
           </div>
         </div>
         <div className="col">
-          <div className="card h-100">
+          <div className="card h-100 shadow-sm">
             <div className="card-body">
               <h6 className="fw-semibold text-primary mb-">Profit</h6>
               <h4 className="fw-medium">
@@ -253,7 +253,7 @@ function salesDashboard() {
           </div>
         </div>
         <div className="col">
-          <div className="card h-100">
+          <div className="card h-100 shadow-sm">
             <div className="card-body">
               <h6 className="fw-semibold text-warning mb-">Profit %</h6>
               <h4 className="fw-medium">
@@ -285,7 +285,7 @@ function salesDashboard() {
           </div>
         </div>
         <div className="col">
-          <div className="card h-100">
+          <div className="card h-100 shadow-sm">
             <div className="card-body">
               <h6 className="fw-semibold text-danger mb-">Sales</h6>
               <h4 className="fw-medium">
@@ -319,7 +319,7 @@ function salesDashboard() {
       </div>
       <div className="row my-3">
         <div className="col">
-          <div className="card dashboard-card h-100">
+          <div className="card dashboard-card h-100 shadow-sm">
             <div className="card-header fw-bold mb-0">Sales by Branches</div>
             <div className="card-body">
               <Chart
@@ -395,7 +395,7 @@ function salesDashboard() {
           </div>
         </div>
         <div className="col">
-          <div className="card dashboard-card h-100">
+          <div className="card dashboard-card h-100 shadow-sm">
             <div className="card-header d-flex justify-content-between">
               <div className="d-flex justify-content-between gap-3">
                 <span className="form-check">
@@ -509,10 +509,9 @@ function salesDashboard() {
           </div>
         </div>
       </div>
-
       <div className="row mb-3">
         <div className="col-4">
-          <div className="card dashboard-card">
+          <div className="card dashboard-card h-100 shadow-sm">
             <div className="card-header fw-bold mb-0">Sales by Customer</div>
             <div
               className="card-body"
@@ -550,7 +549,7 @@ function salesDashboard() {
           </div>
         </div>
         <div className="col">
-          <div className="card dashboard-card h-100">
+          <div className="card dashboard-card h-100 shadow-sm">
             <div className="card-header fw-bold mb-0">Monthly Sales</div>
             <div className="card-body">
               <Bar

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
@@ -10,7 +10,7 @@ import {
   CHeader,
   CHeaderNav,
   CHeaderToggler,
-  CNavLink,
+  // CNavLink,
   CNavItem,
   useColorModes,
 } from '@coreui/react'
@@ -18,8 +18,8 @@ import CIcon from '@coreui/icons-react'
 import {
   cilBell,
   cilContrast,
-  cilEnvelopeOpen,
-  cilList,
+  // cilEnvelopeOpen,
+  // cilList,
   cilMenu,
   cilMoon,
   cilSun,
@@ -27,6 +27,7 @@ import {
 
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 const AppHeader = () => {
   const headerRef = useRef()
@@ -54,6 +55,42 @@ const AppHeader = () => {
           </CHeaderToggler>
           <CHeaderNav className="d-none d-md-flex">
             <CNavItem>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
+                  Setups
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <div className="row w-100">
+                    <div className="col-md">
+                      <h6>System</h6>
+                      <ul className="list-unstyled megamenu-list">
+                        <li>
+                          <Link to="/branch-setup/branch-setup">Branches</Link>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="col-md">
+                      <h6>Customer</h6>
+                    </div>
+                    <div className="col-md">
+                      <h6>Supplier</h6>
+                    </div>
+                    <div className="col-md">
+                      <h6>Inventory</h6>
+                    </div>
+                    <div className="col-md">
+                      <h6>GL</h6>
+                    </div>
+                    <div className="col-md">
+                      <h6>Intergration</h6>
+                    </div>
+                  </div>
+                  {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+                </Dropdown.Menu>
+              </Dropdown>
               {/* <CNavLink to="/dashboard" as={NavLink}>
                 Dashboard
               </CNavLink> */}

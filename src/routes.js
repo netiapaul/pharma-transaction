@@ -1,5 +1,10 @@
 import React from 'react'
 
+// Setups
+const Branches = React.lazy(() => import('./views/setups/systems/branches'))
+const Charts = React.lazy(() => import('./views/charts/Charts'))
+
+// Dashboard
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const ProfitPicture = React.lazy(() => import('./views/dashboard/profitPicture'))
 const StockAnalysis = React.lazy(() => import('./views/dashboard/stockAnalysis'))
@@ -11,7 +16,7 @@ const CreateSalesInvoice = React.lazy(
   () => import('./views/Customer/salesInvoice/createSalesInvoice'),
 )
 
-const main = [
+const analysis = [
   { path: '/dashboard', exact: true, name: 'Dashboard' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/profit-picture', exact: true, name: 'ProfitPicture' },
@@ -22,6 +27,11 @@ const main = [
   { path: '/branch-analysis/branch-analysis', name: 'BranchAnalysis', element: BranchAnalysis },
 ]
 
+const setups = [
+  { path: '/branch-setup', exact: true, name: 'Branches' },
+  { path: '/branch-setup/branch-setup', name: 'Branches', element: Branches },
+]
+
 const customers = [
   { path: '/sales-invoice', exact: true, name: 'Sales Invoice' },
   { path: '/sales-invoice/sales-invoice', name: 'Sales Invoice', element: SalesInvoice },
@@ -30,9 +40,10 @@ const customers = [
     name: 'New Sales Invoice',
     element: CreateSalesInvoice,
   },
+  { path: '/charts', name: 'Charts', element: Charts },
 ]
 
-const routes = [...main, ...customers]
+const routes = [...analysis, ...setups, ...customers]
 // const routes = [
 //   { path: '/dashboard', exact: true, name: 'Dashboard' },
 //   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
