@@ -234,6 +234,22 @@ input:checked {
     font-weight: 500;
 }
 
+.company-btn {
+    font-size: 11px !important;
+    border: 1px solid $company-color !important;
+    background-color: $company-color !important;
+    color: white !important;
+    // color: $success-color !important;
+}
+
+.reverse-company-btn {
+    // color: $success-color !important;
+    font-size: 11px !important;
+    border: 1px solid $company-color !important;
+    background-color: white !important;
+    color: $company-color !important;
+}
+
 .add-btn {
     font-size: 11px !important;
     border: 1px solid $success-color !important;

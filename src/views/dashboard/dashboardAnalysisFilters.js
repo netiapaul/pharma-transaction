@@ -6,7 +6,7 @@ import { dateDefineds, ranges } from '../../utils/helpers'
 import { useForm } from 'react-hook-form'
 import moment from 'moment'
 
-function DashboardAnalysisFilters({ isPending, HandleSubmit }) {
+function DashboardAnalysisFilters({ isLoading, HandleSubmit }) {
   const [show, setShow] = useState(false)
   const [selectedCities, setSelectedCities] = useState(null)
   const cities = [
@@ -186,10 +186,10 @@ function DashboardAnalysisFilters({ isPending, HandleSubmit }) {
               <button
                 type="submit"
                 style={{ width: '5rem' }}
-                className="btn btn-sm add-btn"
-                disabled={isPending}
+                className="btn btn-sm company-btn"
+                disabled={isLoading}
               >
-                {isPending ? (
+                {isLoading ? (
                   <i className="bx bx-loader bx-spin font-size-16 ms-1 align-middle"></i>
                 ) : (
                   'Apply'
@@ -199,8 +199,8 @@ function DashboardAnalysisFilters({ isPending, HandleSubmit }) {
               <button
                 type="button"
                 style={{ width: '5rem' }}
-                className="btn btn-sm filter-btn"
-                disabled={isPending}
+                className="btn btn-sm reverse-company-btn"
+                disabled={isLoading}
                 onClick={handleMask}
               >
                 {show ? (
@@ -222,7 +222,7 @@ function DashboardAnalysisFilters({ isPending, HandleSubmit }) {
 }
 
 DashboardAnalysisFilters.propTypes = {
-  isPending: PropTypes.bool,
+  isLoading: PropTypes.bool,
   HandleSubmit: PropTypes.func,
 }
 

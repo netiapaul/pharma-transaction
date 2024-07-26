@@ -1,61 +1,11 @@
 import React, { useRef, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import Chart from 'react-apexcharts'
 import DashboardAnalysisFilters from './dashboardAnalysisFilters'
 import { GetSalesAnalysis } from '../../services/systemServices'
 import { TelerikReportViewer } from '@progress/telerik-react-report-viewer'
 import ReactApexChart from 'react-apexcharts'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js'
-import { Bar } from 'react-chartjs-2'
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
-
-let data = {
-  1: {
-    totalsales: '4172403.2337500006 0 0 0 0 ',
-    theMonth: 1,
-    theYear: 2024,
-  },
-  2: {
-    totalsales: '3638425.8619953305 0 49831.97 0 0 ',
-    theMonth: 2,
-    theYear: 2024,
-  },
-  3: {
-    totalsales: '1980804.6694999998 0 0 710400 0 ',
-    theMonth: 3,
-    theYear: 2024,
-  },
-  4: {
-    totalsales: '16330236.730000004 0 0 166 0 ',
-    theMonth: 4,
-    theYear: 2024,
-  },
-  5: {
-    totalsales: '1438366.3869999994 0 0 0 0 ',
-    theMonth: 5,
-    theYear: 2024,
-  },
-  6: {
-    totalsales: '335941.0714999999 0 0 0 0 ',
-    theMonth: 6,
-    theYear: 2024,
-  },
-  7: { totalsales: '412912.45 0 0 0 0 ', theMonth: 7, theYear: 2024 },
-  8: { totalsales: '0 0 0 0 0 ', theMonth: 8, theYear: 2024 },
-  9: { totalsales: '0 0 0 0 0 ', theMonth: 9, theYear: 2024 },
-  10: { totalsales: '0 0 0 0 0 ', theMonth: 10, theYear: 2024 },
-  11: { totalsales: '0 0 0 0 0 ', theMonth: 11, theYear: 2024 },
-  12: { totalsales: '0 0 0 0 0 ', theMonth: 12, theYear: 2024 },
-}
+import { CChartPie, CChart } from '@coreui/react-chartjs'
 
 function salesDashboard() {
   let reportRef = useRef(null)
@@ -70,100 +20,32 @@ function salesDashboard() {
     salesByUser: [],
   })
 
-  function combineMonthlyData(arra) {
-    const monthMap = {}
-
-    arra.forEach((month) => {
-      const { name, data } = month
-      if (monthMap[name]) {
-        monthMap[name].data.push(...data)
-      } else {
-        monthMap[name] = { name, data: [...data] }
-      }
-    })
-    return Object.values(monthMap)
-  }
+  // const {
+  //   isPending: isLoadinAnalysis,
+  //   data: dashBoardAnalysis,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ['dashboardAnalysis'],
+  //   queryFn: SysDefaults,
+  // })
 
   const { isPending, mutate: HandleSubmit } = useMutation({
     mutationKey: ['dashboardAnalysis'],
     mutationFn: (data) => GetSalesAnalysis(data),
     onSuccess: (resData) => {
-      let profitMonths = []
-      data?.forEach((item) => {
-        let obj = { name: '', data: [] }
-        switch (item.theMonth) {
-          case 1:
-            obj.name = 'Jan'
-            obj.data.push(item?.totalsales)
-            break
-          case 2:
-            obj.name = 'Feb'
-            obj.data.push(item?.totalsales)
-            break
-          case 3:
-            obj.name = 'Mar'
-            obj.data.push(item?.totalsales)
-            break
-          case 4:
-            obj.name = 'Apr'
-            obj.data.push(item?.totalsales)
-            break
-          case 5:
-            obj.name = 'May'
-            obj.data.push(item?.totalsales)
-            break
-          case 6:
-            obj.name = 'June'
-            obj.data.push(item?.totalsales)
-            break
-          case 7:
-            obj.name = 'July'
-            obj.data.push(item?.totalsales)
-            break
-          case 8:
-            obj.name = 'Aug'
-            obj.data.push(item?.totalsales)
-            break
-          case 9:
-            obj.name = 'Sep'
-            obj.data.push(item?.totalsales)
-            break
-          case 10:
-            obj.name = 'Oct'
-            obj.data.push(item?.totalsales)
-            break
-          case 11:
-            obj.name = 'Nov'
-            obj.data.push(item?.totalsales)
-            break
-          case 12:
-            obj.name = 'Dec'
-            obj.data.push(item?.totalsales)
-            break
-          default:
-            break
-        }
-        return profitMonths.push(obj)
-      }),
-        console.log(combineMonthlyData(profitMonths))
-      console.log('qwe', resData?.data.salesByProfitSummary[0]?.table[0])
       setAnalysisData({
-        salesByProfitSummary: resData?.data.salesByProfitSummary[0]?.table[0],
-        salesByBranch: resData?.data.salesByBranch[0]?.table,
-        salesByCustomer: resData?.data.salesByCustomer[0]?.table[0]?.totalsales,
-        salesBySalesMan: resData?.data.salesBySalesMan[0]?.table,
-        salesByTypeProfit: resData?.data.salesByTypeProfit[0]?.table,
-        // salesByTypeProfitByMonth: combineMonthlyData(profitMonths),
-        salesByTypeProfitByMonth: {},
-        salesByUser: resData?.data.salesByUser[0]?.table,
+        salesByProfitSummary: resData?.data.salesByProfitSummary[0]?.table[0] || [],
+        salesByBranch: resData?.data.salesByBranch[0]?.table || [],
+        salesByCustomer: resData?.data.salesByCustomer[0]?.table[0]?.totalsales || [],
+        salesBySalesMan: resData?.data.salesBySalesMan[0]?.table || [],
+        salesByTypeProfit: resData?.data.salesByTypeProfit[0]?.table || [],
+        salesByTypeProfitByMonth: resData?.data.salesByTypeProfitByMonth[0]?.table || [],
+        salesByUser: resData?.data.salesByUser[0]?.table || [],
       })
     },
   })
 
-  // React.useEffect(() => {
-  //   // Example usage of jQuery
-  //   $('body').css('background-color', 'lightblue')
-  // }, [])
+  let isLoading = isPending
 
   return (
     <>
@@ -178,7 +60,7 @@ function salesDashboard() {
         </div>
       </div>
       <hr className="my-2" />
-      <DashboardAnalysisFilters isPending={isPending} HandleSubmit={HandleSubmit} />
+      <DashboardAnalysisFilters isLoading={isLoading} HandleSubmit={HandleSubmit} />
       <div className="row">
         <div className="col">
           <div className="card h-100 shadow-sm">
@@ -382,12 +264,6 @@ function salesDashboard() {
                     ],
                   },
                 ]}
-                // {new Intl.NumberFormat('en-US').format(
-                //   Number(
-                //     analysisData?.salesByProfitSummary?.totalsales || 0,
-                //   ).toFixed(2),
-                // )
-                // parseInt(item.totalsales),
                 type="bar"
                 height={350}
               />
@@ -432,76 +308,42 @@ function salesDashboard() {
 
             <div className="card-body">
               {salesBy === 'Sales Persons' && (
-                <Chart
-                  options={{
-                    labels: analysisData?.salesBySalesMan?.map((item) => item.salesman),
-                    dataLabels: {
-                      formatter: function (val, opts) {
-                        return opts.w.config.series[opts.seriesIndex]
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                      },
-                    },
-                    tooltip: {
-                      y: {
-                        formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-                          return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                        },
-                      },
-                    },
-                    responsive: [
+                <CChartPie
+                  data={{
+                    labels: [...analysisData?.salesBySalesMan?.map((item) => item.salesman)],
+                    datasets: [
                       {
-                        options: {
-                          legend: {
-                            position: 'bottom',
-                          },
-                        },
+                        data: [
+                          ...analysisData?.salesBySalesMan?.map((item) =>
+                            parseInt(item.totalsales),
+                          ),
+                        ],
                       },
                     ],
-                    legend: {
-                      horizontalAlign: 'right',
-                    },
                   }}
-                  series={[
-                    ...analysisData?.salesBySalesMan?.map((item) => parseInt(item.totalsales)),
-                  ]}
-                  type="pie"
                   height={350}
                 />
               )}
               {salesBy === 'Users' && (
-                <Chart
-                  options={{
-                    labels: analysisData?.salesByUser?.map((item) => item.docuser),
-                    dataLabels: {
-                      formatter: function (val, opts) {
-                        return opts.w.config.series[opts.seriesIndex]
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                      },
-                    },
-                    tooltip: {
-                      y: {
-                        formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-                          return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                        },
-                      },
-                    },
-                    responsive: [
+                <CChartPie
+                  data={{
+                    labels: [...analysisData?.salesByUser?.map((item) => item.docuser)],
+                    datasets: [
                       {
-                        options: {
-                          legend: {
-                            position: 'bottom',
-                          },
-                        },
+                        data: [
+                          ...analysisData?.salesByUser?.map((item) => parseInt(item.totalsales)),
+                        ],
+                        backgroundColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)',
+                          'rgb(255, 205, 86)',
+                          'rgb(75, 192, 192)',
+                          'rgb(255, 206, 86)',
+                          'rgb(54, 162, 235)',
+                        ],
                       },
                     ],
-                    legend: {
-                      horizontalAlign: 'right',
-                    },
                   }}
-                  series={[...analysisData?.salesByUser?.map((item) => parseInt(item.totalsales))]}
-                  type="pie"
                   height={350}
                 />
               )}
@@ -552,7 +394,8 @@ function salesDashboard() {
           <div className="card dashboard-card h-100 shadow-sm">
             <div className="card-header fw-bold mb-0">Monthly Sales</div>
             <div className="card-body">
-              <Bar
+              <CChart
+                type="bar"
                 data={{
                   labels: [
                     'Jan',
@@ -566,107 +409,22 @@ function salesDashboard() {
                     'Sep',
                     'Oct',
                     'Nov',
-                    'Dec',
+                    'Dev',
                   ],
-                  datasets: Object.values(data).map((item) => {
-                    return {
-                      label: 'Dataset 1',
-                      data: item.totalsales.trim().split(' '),
-                      backgroundColor: 'rgb(255, 99, 132)',
-                      stack: 'Stack 0',
-                    }
-                  }),
-                  // datasets: [
-                  //   {
-                  //     label: 'Dataset 1',
-                  //     data: Array.from({ length: 12 }, (_, i) => Math.random() * 100000000),
-                  //     backgroundColor: 'rgb(255, 99, 132)',
-                  //     stack: 'Stack 0',
-                  //   },
-                  //   {
-                  //     label: 'Dataset 2',
-                  //     data: Array.from({ length: 12 }, (_, i) => Math.random() * 100000000),
-                  //     backgroundColor: 'rgb(75, 192, 192)',
-                  //     stack: 'Stack 1',
-                  //   },
-                  //   {
-                  //     label: 'Dataset 3',
-                  //     data: Array.from({ length: 12 }, (_, i) => Math.random() * 100000000),
-                  //     backgroundColor: 'rgb(53, 162, 235)',
-                  //     stack: 'Stack 2',
-                  //   },
-                  // ],
+                  datasets: [
+                    {
+                      label: 'Profit by Months',
+                      backgroundColor: '#36a2eb',
+                      data: [
+                        ...analysisData?.salesByTypeProfitByMonth?.map((item) =>
+                          parseInt(item.totalsales),
+                        ),
+                      ],
+                    },
+                  ],
                 }}
+                labels="months"
               />
-              {/* <ReactApexChart
-                options={{
-                  chart: {
-                    type: 'bar',
-                    height: 350,
-                  },
-                  plotOptions: {
-                    bar: {
-                      horizontal: false,
-                      columnWidth: '55%',
-                      endingShape: 'rounded',
-                    },
-                  },
-                  dataLabels: {
-                    enabled: false,
-                  },
-                  stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ['transparent'],
-                  },
-                  xaxis: {
-                    categories: [
-                      'Jan',
-                      'Feb',
-                      'Mar',
-                      'Apr',
-                      'May',
-                      'Jun',
-                      'Jul',
-                      'Aug',
-                      'Sep',
-                      'Oct',
-                      'Nov',
-                      'Dec',
-                    ],
-                    // categories: analysisData?.salesByTypeProfitByMonth?.map((month) => month?.name),
-                  },
-                  yaxis: {
-                    title: {
-                      text: 'Monthly Sales',
-                    },
-                    y: {
-                      formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
-                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                      },
-                    },
-                  },
-                  fill: {
-                    opacity: 1,
-                  },
-                  tooltip: {
-                    y: {
-                      formatter: function (val) {
-                        // return '$' + val + ' thousands';
-                        return val
-                      },
-                    },
-                  },
-                }}
-                series={analysisData?.salesByTypeProfitByMonth?.map((month, i) => {
-                  return {
-                    // name: `Branch ${i + 1}`,
-                    data: month.data,
-                  }
-                })}
-                type="bar"
-                height={350}
-              /> */}
             </div>
           </div>
         </div>
