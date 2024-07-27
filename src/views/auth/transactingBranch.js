@@ -5,9 +5,10 @@ import AccountingTills from '../../UI/tills/tills'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { AlertErrorArrayResponse } from '../../UI/alerts/alertResponse'
-import { Logout, ValidateBranch } from '../../services/systemServices'
+import { ValidateBranch } from '../../services/system_Services'
 import toast from 'react-hot-toast'
 import { useMutation } from '@tanstack/react-query'
+import { Logout } from '../../services/auth_Services'
 
 function TransactingBranch() {
   if (!localStorage.getItem('token')) return <Navigate to="/" replace={true} />

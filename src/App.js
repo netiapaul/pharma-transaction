@@ -10,6 +10,7 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
 // Pages
 const Login = React.lazy(() => import('./views/auth/login/Login'))
+const ForgetPassword = React.lazy(() => import('./views/auth/forgetPassword/forget_password'))
 const TransactingBranch = React.lazy(() => import('./views/auth/transactingBranch'))
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
@@ -44,6 +45,12 @@ const App = () => {
       >
         <Routes>
           <Route exact path="/" name="Login Page" element={<Login />} />
+          <Route
+            exact
+            path="/auth-recoverpw"
+            name="Recover Password"
+            element={<ForgetPassword />}
+          />
           <Route
             exact
             path="/auth/branch"
