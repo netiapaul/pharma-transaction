@@ -1,23 +1,25 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { CContainer } from '@coreui/react'
 import ProductImage from '../../../assets/images/LoginPageLogo.png'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
-import { HandleLogin } from '../../../services/systemServices'
 import toast from 'react-hot-toast'
-import { AlertErrorArrayResponse } from '../../../UI/alerts/alertResponse'
+import { AlertErrorArrayResponse, AlertSuccessResponse } from '../../../UI/alerts/alertResponse'
+import { HandleLogin } from '../../../services/auth_Services'
 
 const Login = () => {
   //meta title
   document.title = 'Login | phAMACore Cloud'
   const navigate = useNavigate()
+  let location = useLocation()
 
   const [ErrorArray, setErrorArray] = useState([])
 
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm()
 
@@ -33,7 +35,11 @@ const Login = () => {
     HandleSubmit(userData)
   }
 
-  const { isPending, mutate: HandleSubmit } = useMutation({
+  const {
+    isPending,
+    isError,
+    mutate: HandleSubmit,
+  } = useMutation({
     mutationKey: ['login_auth'],
     mutationFn: (data) => HandleLogin(data),
     onSuccess: () => {
@@ -43,7 +49,29 @@ const Login = () => {
     },
     onError: (error) => {
       console.log(error)
-      setErrorArray(...new Set([...ErrorArray, ...error.message?.split(',')]))
+      toast.error('An error occured processing your current request!', {
+        duration: 5000,
+      })
+      setErrorArray([...error.message?.split(',')])
+      if (error?.message?.includes('Account is locked due to failed login attempts')) {
+        return navigate('/auth-lock-screen', {
+          state: { error: error?.message, userName: getValues('credName') },
+        })
+      }
+      if (error?.message?.includes('You need to update your password before proceeding')) {
+        return navigate('/auth-pwd-change', {
+          state: { error: error?.message },
+        })
+      }
+      if (error?.message?.includes('do you want to auto logout')) {
+        return navigate('/auth-clear-session', {
+          state: {
+            error: error?.message,
+            userName: getValues('credName'),
+            password: getValues('credPass'),
+          },
+        })
+      }
     },
   })
 
@@ -52,7 +80,8 @@ const Login = () => {
       <CContainer>
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-6 col-xl-4">
-            {Boolean(ErrorArray?.length) && <AlertErrorArrayResponse ErrorArray={ErrorArray} />}
+            {location.state?.success && <AlertSuccessResponse success={location.state?.success} />}
+            {isError && <AlertErrorArrayResponse ErrorArray={ErrorArray} />}
             <div className="card shadow-sm">
               <div className="auth-bg-banner text-center">
                 <div className="text-dark p-4">
@@ -117,7 +146,7 @@ const Login = () => {
                     )}
                   </button>
                   <div className="mt-3 text-center">
-                    <Link to="/forgot-password" className="text-muted">
+                    <Link to="/auth-recoverpw" className="link-secondary">
                       <i className="mdi mdi-lock me-1" />
                       Forgot your password?
                     </Link>

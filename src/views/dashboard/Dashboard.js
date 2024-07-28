@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import Chart from 'react-apexcharts'
 import DashboardAnalysisFilters from './dashboardAnalysisFilters'
-import { GetSalesAnalysis } from '../../services/systemServices'
+import { GetSalesAnalysis } from '../../services/system_Services'
 import { TelerikReportViewer } from '@progress/telerik-react-report-viewer'
 import ReactApexChart from 'react-apexcharts'
 import { CChartPie, CChart } from '@coreui/react-chartjs'
@@ -34,13 +34,13 @@ function salesDashboard() {
     mutationFn: (data) => GetSalesAnalysis(data),
     onSuccess: (resData) => {
       setAnalysisData({
-        salesByProfitSummary: resData?.data.salesByProfitSummary[0]?.table[0] || [],
-        salesByBranch: resData?.data.salesByBranch[0]?.table || [],
-        salesByCustomer: resData?.data.salesByCustomer[0]?.table[0]?.totalsales || [],
-        salesBySalesMan: resData?.data.salesBySalesMan[0]?.table || [],
-        salesByTypeProfit: resData?.data.salesByTypeProfit[0]?.table || [],
-        salesByTypeProfitByMonth: resData?.data.salesByTypeProfitByMonth[0]?.table || [],
-        salesByUser: resData?.data.salesByUser[0]?.table || [],
+        salesByProfitSummary: resData?.salesByProfitSummary[0]?.table[0] || [],
+        salesByBranch: resData?.salesByBranch[0]?.table || [],
+        salesByCustomer: resData?.salesByCustomer[0]?.table[0]?.totalsales || [],
+        salesBySalesMan: resData?.salesBySalesMan[0]?.table || [],
+        salesByTypeProfit: resData?.salesByTypeProfit[0]?.table || [],
+        salesByTypeProfitByMonth: resData?.salesByTypeProfitByMonth[0]?.table || [],
+        salesByUser: resData?.salesByUser[0]?.table || [],
       })
     },
   })

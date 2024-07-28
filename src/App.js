@@ -11,6 +11,11 @@ const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 // Pages
 const Login = React.lazy(() => import('./views/auth/login/Login'))
 const ForgetPassword = React.lazy(() => import('./views/auth/forgetPassword/forget_password'))
+const LockScreen = React.lazy(() => import('./views/auth/lockScreen/lock_screen'))
+const VerifyOTP = React.lazy(() => import('./views/auth/lockScreen/verify_otp'))
+const PasswordChange = React.lazy(() => import('./views/auth/passwordChange/password_change'))
+const ClearSession = React.lazy(() => import('./views/auth/lockScreen/clear_session'))
+//
 const TransactingBranch = React.lazy(() => import('./views/auth/transactingBranch'))
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
@@ -51,6 +56,21 @@ const App = () => {
             name="Recover Password"
             element={<ForgetPassword />}
           />
+          <Route exact path="/auth-lock-screen" name="Lock Screen" element={<LockScreen />} />
+          <Route
+            exact
+            path="/auth-two-step-verification"
+            name="Verify OTP"
+            element={<VerifyOTP />}
+          />
+          <Route
+            exact
+            path="/auth-pwd-change"
+            name="Password Change"
+            element={<PasswordChange />}
+          />
+          <Route exact path="/auth-clear-session" name="Clear Session" element={<ClearSession />} />
+          {/*  */}
           <Route
             exact
             path="/auth/branch"

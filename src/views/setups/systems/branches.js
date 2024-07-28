@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { FilterMatchMode } from 'primereact/api'
-import { Branches } from '../../../services/systemServices'
+import { Branches } from '../../../services/system_Services'
 
 function branches() {
   const [selectedProduct, setSelectedProduct] = useState(null)

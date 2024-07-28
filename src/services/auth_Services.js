@@ -1,11 +1,12 @@
 import axios from 'axios'
-import { handleErrors, defErrorMessage } from '../utils/functions'
+import { handleErrors } from '../utils/functions'
 
 /**
  * Login User
  * @param {Object} userData - login form data
  */
 export async function HandleLogin(userData) {
+  localStorage.removeItem('token')
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_APP_DYNAMIC_URL}`,
@@ -33,36 +34,142 @@ export async function HandleLogin(userData) {
     localStorage.setItem('token', response?.data.token)
     localStorage.setItem('user', JSON.stringify(response?.data['user']))
     localStorage.setItem('BASE_URL', response?.data['user'].baseUrl)
-    return response
+    return response.data
   } catch (error) {
     console.log(error)
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      if (error.response?.data.errors) {
-        console.log('step 1')
-        throw new Error(
-          Object.keys(error.response.data.errors).map(
-            (key, value) => error.response.data.errors[key],
-          ),
-        )
-      } else if (error.response?.data.message) {
-        console.log('step 2')
-        throw new Error(error.response.data.message)
-      } else {
-        console.log('step 3')
-        throw new Error(error.message)
-      }
-    } else if (error.request?.statusText) {
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
-      throw new Error(error.request)
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      //   throw new Error('Error', error.message)
-      throw new Error(defErrorMessage)
-    }
+    return handleErrors(error)
+  }
+}
+/**
+ * Unlocks User
+ *
+ */
+export async function ForgotPassword(userData) {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_APP_DYNAMIC_URL}/ForgotPassword`, {
+      params: {
+        userName: userData?.username,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    console.log(response)
+    // window.location.reload(true)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    return handleErrors(error)
+  }
+}
+/**
+ * Unlocks User
+ *
+ */
+export async function UnlockAccount(userData) {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_APP_DYNAMIC_URL}/UnlockAccount`,
+      {
+        userName: userData?.userName,
+        password: userData?.password,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    console.log(response)
+    // window.location.reload(true)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    return handleErrors(error)
+  }
+}
+/**
+ * Change User Password
+ *
+ */
+export async function ChangePassword(userData) {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_APP_DYNAMIC_URL}/ChangePassword`, {
+      params: {
+        currentPassword: userData?.currentPassword,
+        newPassword: userData?.newPassword,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    console.log(response)
+    localStorage.removeItem('token')
+    // window.location.reload(true)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    return handleErrors(error)
+  }
+}
+/**
+ * Change User Password
+ *
+ */
+export async function ClearSessions() {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_APP_DYNAMIC_URL}/ClearSessions`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    console.log(response)
+    localStorage.removeItem('token')
+    // window.location.reload(true)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    return handleErrors(error)
+  }
+}
+/**
+ * Verifies OTP sent to user
+ *
+ */
+export async function VerifyUnlockCode(userData) {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_APP_DYNAMIC_URL}/VerifyUnlockCode`,
+      {
+        userName: userData.userName,
+        code: userData.otpcode,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    console.log(response)
+    // window.location.reload(true)
+    return response.data
+  } catch (error) {
+    console.log(error)
+    return handleErrors(error)
   }
 }
 /**
@@ -87,7 +194,7 @@ export async function Logout() {
     localStorage.clear()
     localStorage.setItem('coreui-free-react-admin-template-theme', 'light')
     // window.location.reload(true)
-    return response
+    return response.data
   } catch (error) {
     console.log(error)
     return handleErrors(error)

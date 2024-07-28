@@ -44,7 +44,7 @@ function TransactingBranch() {
     },
     onError: (error) => {
       console.log(error)
-      setErrorArray(...new Set([...ErrorArray, ...error.message?.split(',')]))
+      setErrorArray([...error.message?.split(',')])
     },
     onSettled: () => {
       navigate('/', { replace: true })
@@ -115,7 +115,8 @@ function TransactingBranch() {
                         <i className="mdi mdi-lock me-1" />
                         Back to{' '}
                         <span
-                          className="text-decoration-underline fw-medium text-primary-emphasis"
+                          className="text-decoration-underline fw-medium"
+                          style={{ color: '#ff3547' }}
                           role="button"
                           onClick={handleLogOut}
                         >

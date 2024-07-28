@@ -376,7 +376,9 @@ input:checked {
 
 .auth-form {
     font-size: 12px !important;
-    padding: .4375rem .875rem !important;
+    // padding: 12px !important;
+    // font-size: 0.875rem !important;
+    padding: 0.65625rem 0.65625rem !important;
 }
 
 .auth-form::placeholder {
@@ -390,6 +392,14 @@ input:checked {
     background-color: $company-color !important;
     border-color: $company-color !important;
     box-shadow: 0 .125rem .25rem 0 rgba(197, 140, 79, .4) !important;
+}
+
+.auth-button-logout {
+    font-size: 0.9375rem !important;
+    color: #fff !important;
+    background-color: $danger-color !important;
+    border-color: $danger-color !important;
+    box-shadow: 0 .125rem .25rem 0 rgba(255, 51, 68, 0.4) !important;
 }
 
 .form-control:focus,
@@ -463,7 +473,31 @@ input:checked {
 //     border: .25px solid #dedede !important;
 // }
 
-//
+// PRIME REACT
+
+.p-inputtext {
+    font-size: 12px !important;
+    padding: 0.65625rem 0.65625rem !important;
+    // padding: 0.75rem 0.75rem;
+}
+
+.p-inputtext:enabled:hover {
+    border-color: $company-color !important;
+}
+
+// C58C4f
+.p-inputtext:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.1rem #ffb36296 !important;
+    border-color: $company-color !important;
+}
+
+.p-inputotp-input {
+    text-align: center !important;
+    width: 100% !important;
+}
+
 .p-datatable.p-datatable-sm .p-datatable-thead>tr>th {
     font-family: "Poppins", sans-serif !important;
     font-size: 10px !important;

@@ -11,6 +11,8 @@ import DatePicker from 'react-datepicker'
 import { DataTable } from 'primereact/datatable'
 import { Column } from 'primereact/column'
 import { FilterMatchMode } from 'primereact/api'
+import { useQuery } from '@tanstack/react-query'
+import { GET_CUSTOMER_INVOICES } from '../../../helpers/backend_helper'
 
 function SalesInvoice() {
   document.title = 'Sales Invoice | phAMACore Cloud'
@@ -283,7 +285,7 @@ function SalesInvoice() {
 
   const renderHeader = () => {
     return (
-      <div className="d-flex justify-content-end d-inline-flex">
+      <div className="d-flex justify-content-end">
         <input
           type="text"
           className="form-control form-control-sm"
@@ -299,6 +301,32 @@ function SalesInvoice() {
   }
 
   const header = renderHeader()
+
+  const handleGetCustomer = () => {
+    const data = {
+      startDate: '01/01/2024',
+      endDate: '31/12/2024',
+      cusRef: '',
+      account: '',
+      amount: '',
+      scheme: '',
+      salesCategory: '0',
+      batched: 'false',
+      viewall: false,
+    }
+
+    return GET_CUSTOMER_INVOICES(data)
+  }
+
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ['salesInvoice'],
+    queryFn: handleGetCustomer,
+    // onError: (err) => {
+    //   console.log('invoiceError', err)
+    // },
+  })
+
+  let isLoading = isPending
 
   return (
     <>
@@ -397,7 +425,7 @@ function SalesInvoice() {
         <div className="card-body">
           {JSON.stringify(selectedProduct)}
           <DataTable
-            value={products}
+            value={data}
             showGridlines
             size={'small'}
             paginator
@@ -407,6 +435,7 @@ function SalesInvoice() {
             selectionMode="single"
             selection={selectedProduct}
             header={header}
+            loading={isLoading}
             onSelectionChange={(e) => handleSelect(e)}
             paginatorTemplate="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
           >

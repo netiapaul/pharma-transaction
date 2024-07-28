@@ -1,4 +1,4 @@
-const defErrorMessage = 'An error occured processing your current request!'
+export const defErrorMessage = 'An error occured processing your current request!'
 
 export function handleErrors(error) {
   if (error.response) {
@@ -13,6 +13,17 @@ export function handleErrors(error) {
       )
     } else if (error.response?.data.message) {
       console.log('step 2')
+      if (
+        error.response.data.message?.includes(
+          'You need to update your password before proceeding',
+        ) ||
+        error.response.data.message?.includes('do you want to auto logout')
+      ) {
+        localStorage.setItem('token', error.response.data?.logouttoken)
+      }
+      // if (error.response.data.message?.includes('do you want to auto logout')) {
+      //   localStorage.setItem('token', error.response.data?.logouttoken)
+      // }
       throw new Error(error.response.data.message)
     } else {
       console.log('step 3')
