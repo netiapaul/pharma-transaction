@@ -1,13 +1,14 @@
 import axios from 'axios'
+import { handleErrors } from '../utils/functions'
 
 //apply base url for axios
-const API_URL = ''
+const API_URL = 'http://www.phamacoretraining.co.ke:81/'
 
 const axiosApi = axios.create({
   baseURL: API_URL,
 })
 
-axiosApi.defaults.baseURL = 'https://api.example.com'
+// axiosApi.defaults.baseURL = 'https://api.example.com'
 axiosApi.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
 axiosApi.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
@@ -32,24 +33,16 @@ axiosApi.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    return Promise.reject(error)
+    // return Promise.reject(error)
+    return handleErrors(error)
   },
 )
-
-// export async function get(url, config = {}) {
-//   try {
-//     const response = await axiosApi.get(url, { ...config })
-//     return response
-//   } catch (error) {
-//     throw new Error(error)
-//   }
-// }
 
 export async function post(url, data, config = {}) {
   return axiosApi.post(url, { ...data }, { ...config }).then((response) => response)
 }
 export async function get(url, config = {}) {
-  return axiosApi.post(url, { ...config }).then((response) => response)
+  return await axiosApi.get(url, { ...config }).then((response) => response.data)
 }
 
 // export async function post(url, data, config = {}) {

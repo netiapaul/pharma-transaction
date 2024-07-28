@@ -1,136 +1,117 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { CContainer } from '@coreui/react'
 import ProductImage from '../../../assets/images/LoginPageLogo.png'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import { AlertErrorArrayResponse, AlertSuccessResponse } from '../../../UI/alerts/alertResponse'
-import { HandleLogin } from '../../../services/auth_Services'
+import { AlertErrorArrayResponse, AlertErrorResponse } from '../../../UI/alerts/alertResponse'
+import { UnlockAccount } from '../../../services/auth_Services'
 
 const Login = () => {
   //meta title
-  document.title = 'Login | phAMACore Cloud'
+  document.title = 'Lock Screen | phAMACore Cloud'
   const navigate = useNavigate()
   let location = useLocation()
-
   const [ErrorArray, setErrorArray] = useState([])
+
+  if (!location.state?.userName) return <Navigate to="/" replace={true} />
 
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm()
-
-  const onSubmit = (data) => {
-    const userData = {
-      machineCookie: '',
-      clientPin: 0,
-      latt: '',
-      long: '',
-      username: data?.credName,
-      password: data?.credPass,
-    }
-    HandleSubmit(userData)
-  }
-
-  const {
-    isPending,
-    isError,
-    mutate: HandleSubmit,
-  } = useMutation({
-    mutationKey: ['login_auth'],
-    mutationFn: (data) => HandleLogin(data),
-    onSuccess: () => {
-      setErrorArray([])
-      toast.success('Authorization successfull')
-      navigate('/auth/branch', { replace: true })
-    },
-    onError: (error) => {
-      console.log(error)
-      toast.error('An error occured processing your current request!', {
-        duration: 5000,
-      })
-      setErrorArray([...error.message?.split(',')])
-      if (error?.message?.includes('Account is locked due to failed login attempts')) {
-        return navigate('/auth-lock-screen', {
-          state: { error: error?.message, userName: getValues('credName') },
-        })
-      }
-      if (error?.message?.includes('You need to update your password before proceeding')) {
-        return navigate('/auth-pwd-change', {
-          state: { error: error?.message },
-        })
-      }
-      if (error?.message?.includes('do you want to auto logout')) {
-        return navigate('/auth-clear-session', {
-          state: {
-            error: error?.message,
-            userName: getValues('credName'),
-            password: getValues('credPass'),
-          },
-        })
-      }
+  } = useForm({
+    defaultValues: {
+      lockedcredName: location.state?.userName || '',
+      lockedcredPass: '',
     },
   })
 
+  const onSubmit = (data) => {
+    const userData = {
+      userName: data?.lockedcredName,
+      password: data?.lockedcredPass,
+    }
+    handleUnlock(userData)
+  }
+
+  const { isPending, mutate: handleUnlock } = useMutation({
+    mutationKey: ['lock_auth'],
+    mutationFn: (data) => UnlockAccount(data),
+    onSuccess: (res) => {
+      setErrorArray([])
+      toast.success('OTP sent successfull')
+      navigate('/auth-two-step-verification', {
+        replace: true,
+        state: {
+          success: res.message,
+          userName: getValues('lockedcredName'),
+        },
+      })
+    },
+    onError: (error) => {
+      console.log(error)
+      setErrorArray([...error.message?.split(',')])
+    },
+  })
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-6 col-xl-4">
-            {location.state?.success && <AlertSuccessResponse success={location.state?.success} />}
-            {isError && <AlertErrorArrayResponse ErrorArray={ErrorArray} />}
+            <AlertErrorResponse error={location.state?.error} />
+            {Boolean(ErrorArray?.length) && <AlertErrorArrayResponse ErrorArray={ErrorArray} />}
             <div className="card shadow-sm">
               <div className="auth-bg-banner text-center">
                 <div className="text-dark p-4">
                   <img src={ProductImage} className="img-fluid" width="100" alt="brand" />
                   <p className="fw-semibold m-0 system_version text-center">Version 2.0.0.2</p>
-                  <h5>Welcome Back !</h5>
+                  <h5>Lock screen</h5>
                   <p className="m-0">
-                    Sign in to continue to <span className="footer-link fw-bold">phAMACore</span>.
+                    Enter your credentials to unlock{' '}
+                    <span className="footer-link fw-bold">phAMACore</span>.
                   </p>
                 </div>
               </div>
               <div className="card-body p-4">
                 <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-3">
-                    <label htmlFor="credName" className="form-label">
+                    <label htmlFor="lockedcredName" className="form-label">
                       User Name
                     </label>
                     <input
                       type="text"
                       className="form-control auth-form"
-                      id="credName"
-                      {...register('credName', { required: true })}
+                      id="lockedcredName"
+                      {...register('lockedcredName', { required: false })}
                       placeholder="Enter your username"
-                      autoFocus
+                      disabled={location.state?.userName}
                     />
-                    {errors.credName && (
+                    {errors.lockedcredName && (
                       <span className="form-text text-danger" role="alert">
                         This field is required
                       </span>
                     )}
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="credPass" className="form-label">
+                    <label htmlFor="lockedcredPass" className="form-label">
                       Password
                     </label>
                     <input
                       type="password"
                       className="form-control auth-form"
-                      id="credPass"
-                      {...register('credPass', { required: true })}
+                      id="lockedcredPass"
+                      {...register('lockedcredPass', { required: false })}
                       placeholder="*********"
                     />
-                    {errors.credPass && (
+                    {errors.lockedcredPass && (
                       <span className="form-text text-danger" role="alert">
                         This field is required
                       </span>
                     )}
                   </div>
-
                   <button
                     className="btn btn-block d-grid w-100 auth-button"
                     type="submit"
@@ -142,13 +123,13 @@ const Login = () => {
                         Loading
                       </>
                     ) : (
-                      'Sign In'
+                      'Unlock'
                     )}
                   </button>
                   <div className="mt-3 text-center">
-                    <Link to="/auth-recoverpw" className="link-secondary">
-                      <i className="mdi mdi-lock me-1" />
-                      Forgot your password?
+                    Not you ? return
+                    <Link to="/" className="link-secondary ms-1">
+                      Sign In here
                     </Link>
                   </div>
                 </form>

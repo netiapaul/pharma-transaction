@@ -25,7 +25,7 @@ import CIcon from '@coreui/icons-react'
 import avatar8 from './../../assets/images/avatars/8.jpg'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import { Logout } from '../../services/systemServices'
+import { Logout } from '../../services/auth_Services'
 
 const AppHeaderDropdown = () => {
   const navigate = useNavigate()

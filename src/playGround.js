@@ -510,43 +510,48 @@ const result = data.reduce((acc, { totalsales, theMonth }) => {
 }, {})
 
 // console.log(result)
-console.log(
-  Object.values({
-    1: {
-      totalsales: '4172403.2337500006 0 0 0 0 ',
-      theMonth: 1,
-      theYear: 2024,
-    },
-    2: {
-      totalsales: '3638425.8619953305 0 49831.97 0 0 ',
-      theMonth: 2,
-      theYear: 2024,
-    },
-    3: {
-      totalsales: '1980804.6694999998 0 0 710400 0 ',
-      theMonth: 3,
-      theYear: 2024,
-    },
-    4: {
-      totalsales: '16330236.730000004 0 0 166 0 ',
-      theMonth: 4,
-      theYear: 2024,
-    },
-    5: {
-      totalsales: '1438366.3869999994 0 0 0 0 ',
-      theMonth: 5,
-      theYear: 2024,
-    },
-    6: {
-      totalsales: '335941.0714999999 0 0 0 0 ',
-      theMonth: 6,
-      theYear: 2024,
-    },
-    7: { totalsales: '412912.45 0 0 0 0 ', theMonth: 7, theYear: 2024 },
-    8: { totalsales: '0 0 0 0 0 ', theMonth: 8, theYear: 2024 },
-    9: { totalsales: '0 0 0 0 0 ', theMonth: 9, theYear: 2024 },
-    10: { totalsales: '0 0 0 0 0 ', theMonth: 10, theYear: 2024 },
-    11: { totalsales: '0 0 0 0 0 ', theMonth: 11, theYear: 2024 },
-    12: { totalsales: '0 0 0 0 0 ', theMonth: 12, theYear: 2024 },
-  }),
-)
+// console.log(
+//   Object.values({
+//     1: {
+//       totalsales: '4172403.2337500006 0 0 0 0 ',
+//       theMonth: 1,
+//       theYear: 2024,
+//     },
+//     2: {
+//       totalsales: '3638425.8619953305 0 49831.97 0 0 ',
+//       theMonth: 2,
+//       theYear: 2024,
+//     },
+//     3: {
+//       totalsales: '1980804.6694999998 0 0 710400 0 ',
+//       theMonth: 3,
+//       theYear: 2024,
+//     },
+//     4: {
+//       totalsales: '16330236.730000004 0 0 166 0 ',
+//       theMonth: 4,
+//       theYear: 2024,
+//     },
+//     5: {
+//       totalsales: '1438366.3869999994 0 0 0 0 ',
+//       theMonth: 5,
+//       theYear: 2024,
+//     },
+//     6: {
+//       totalsales: '335941.0714999999 0 0 0 0 ',
+//       theMonth: 6,
+//       theYear: 2024,
+//     },
+//     7: { totalsales: '412912.45 0 0 0 0 ', theMonth: 7, theYear: 2024 },
+//     8: { totalsales: '0 0 0 0 0 ', theMonth: 8, theYear: 2024 },
+//     9: { totalsales: '0 0 0 0 0 ', theMonth: 9, theYear: 2024 },
+//     10: { totalsales: '0 0 0 0 0 ', theMonth: 10, theYear: 2024 },
+//     11: { totalsales: '0 0 0 0 0 ', theMonth: 11, theYear: 2024 },
+//     12: { totalsales: '0 0 0 0 0 ', theMonth: 12, theYear: 2024 },
+//   }),
+// )
+
+let data2 = {
+  name: '',
+}
+console.log('Teset', 'name' in data2)

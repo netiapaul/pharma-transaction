@@ -1,77 +1,49 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CContainer } from '@coreui/react'
 import ProductImage from '../../../assets/images/LoginPageLogo.png'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import { AlertErrorArrayResponse, AlertSuccessResponse } from '../../../UI/alerts/alertResponse'
-import { HandleLogin } from '../../../services/auth_Services'
+import { AlertErrorArrayResponse } from '../../../UI/alerts/alertResponse'
+import { ForgotPassword } from '../../../services/auth_Services'
 
 const Login = () => {
   //meta title
-  document.title = 'Login | phAMACore Cloud'
+  document.title = 'Forget Password | phAMACore Cloud'
   const navigate = useNavigate()
-  let location = useLocation()
 
   const [ErrorArray, setErrorArray] = useState([])
 
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm()
 
   const onSubmit = (data) => {
     const userData = {
-      machineCookie: '',
-      clientPin: 0,
-      latt: '',
-      long: '',
       username: data?.credName,
-      password: data?.credPass,
     }
     HandleSubmit(userData)
   }
 
-  const {
-    isPending,
-    isError,
-    mutate: HandleSubmit,
-  } = useMutation({
-    mutationKey: ['login_auth'],
-    mutationFn: (data) => HandleLogin(data),
-    onSuccess: () => {
+  const { isPending, mutate: HandleSubmit } = useMutation({
+    mutationKey: ['forget_pwd'],
+    mutationFn: (data) => ForgotPassword(data),
+    onSuccess: (res) => {
       setErrorArray([])
-      toast.success('Authorization successfull')
-      navigate('/auth/branch', { replace: true })
+      toast.success('Password reset successfull')
+      navigate('/', {
+        replace: true,
+        state: {
+          success: res.message,
+        },
+      })
     },
     onError: (error) => {
       console.log(error)
-      toast.error('An error occured processing your current request!', {
-        duration: 5000,
-      })
       setErrorArray([...error.message?.split(',')])
-      if (error?.message?.includes('Account is locked due to failed login attempts')) {
-        return navigate('/auth-lock-screen', {
-          state: { error: error?.message, userName: getValues('credName') },
-        })
-      }
-      if (error?.message?.includes('You need to update your password before proceeding')) {
-        return navigate('/auth-pwd-change', {
-          state: { error: error?.message },
-        })
-      }
-      if (error?.message?.includes('do you want to auto logout')) {
-        return navigate('/auth-clear-session', {
-          state: {
-            error: error?.message,
-            userName: getValues('credName'),
-            password: getValues('credPass'),
-          },
-        })
-      }
     },
   })
 
@@ -80,19 +52,21 @@ const Login = () => {
       <CContainer>
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-6 col-xl-4">
-            {location.state?.success && <AlertSuccessResponse success={location.state?.success} />}
-            {isError && <AlertErrorArrayResponse ErrorArray={ErrorArray} />}
+            {Boolean(ErrorArray?.length) && <AlertErrorArrayResponse ErrorArray={ErrorArray} />}
             <div className="card shadow-sm">
               <div className="auth-bg-banner text-center">
                 <div className="text-dark p-4">
                   <img src={ProductImage} className="img-fluid" width="100" alt="brand" />
                   <p className="fw-semibold m-0 system_version text-center">Version 2.0.0.2</p>
-                  <h5>Welcome Back !</h5>
+                  <h5>Reset Password !</h5>
                   <p className="m-0">
-                    Sign in to continue to <span className="footer-link fw-bold">phAMACore</span>.
+                    Reset Password to <span className="footer-link fw-bold">phAMACore</span>.
                   </p>
                 </div>
               </div>
+              <p className="m-0 text-center text-success fw-medium">
+                Enter your username and instructions will be sent to you!
+              </p>
               <div className="card-body p-4">
                 <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-3">
@@ -113,24 +87,6 @@ const Login = () => {
                       </span>
                     )}
                   </div>
-                  <div className="mb-3">
-                    <label htmlFor="credPass" className="form-label">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control auth-form"
-                      id="credPass"
-                      {...register('credPass', { required: true })}
-                      placeholder="*********"
-                    />
-                    {errors.credPass && (
-                      <span className="form-text text-danger" role="alert">
-                        This field is required
-                      </span>
-                    )}
-                  </div>
-
                   <button
                     className="btn btn-block d-grid w-100 auth-button"
                     type="submit"
@@ -142,13 +98,13 @@ const Login = () => {
                         Loading
                       </>
                     ) : (
-                      'Sign In'
+                      'reset'
                     )}
                   </button>
                   <div className="mt-3 text-center">
-                    <Link to="/auth-recoverpw" className="link-secondary">
-                      <i className="mdi mdi-lock me-1" />
-                      Forgot your password?
+                    Remember It ?
+                    <Link to="/" className="link-secondary ms-1">
+                      Sign In here
                     </Link>
                   </div>
                 </form>

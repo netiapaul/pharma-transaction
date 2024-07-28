@@ -14,7 +14,15 @@ import 'primereact/resources/themes/lara-light-cyan/theme.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
 // Create a client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    // refetchOnWindowFocus: false,
+    // refetchOnMount: false,
+    // refetchOnReconnect: false,
+    // retry: false,
+    gcTime: 5 * 60 * 1000,
+  },
+})
 
 createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>

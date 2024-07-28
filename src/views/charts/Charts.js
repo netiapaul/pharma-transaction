@@ -33,7 +33,17 @@ const Charts = () => {
                   {
                     label: 'GitHub Commits',
                     backgroundColor: '#f87979',
-                    data: [40, 20, 12, 39, 10, 40, 39, 80, 40],
+                    data: Array.from({ length: 7 }, (_, i) => Math.trunc(Math.random() * 100000)),
+                  },
+                  {
+                    label: 'GitHub Commits',
+                    backgroundColor: '#f87979',
+                    data: Array.from({ length: 7 }, (_, i) => Math.trunc(Math.random() * 10000)),
+                  },
+                  {
+                    label: 'GitHub Commits',
+                    backgroundColor: '#f87979',
+                    data: Array.from({ length: 7 }, (_, i) => Math.trunc(Math.random() * 100000)),
                   },
                 ],
               }}
