@@ -16,7 +16,9 @@ const VerifyOTP = React.lazy(() => import('./views/auth/lockScreen/verify_otp'))
 const PasswordChange = React.lazy(() => import('./views/auth/passwordChange/password_change'))
 const ClearSession = React.lazy(() => import('./views/auth/lockScreen/clear_session'))
 //
-const TransactingBranch = React.lazy(() => import('./views/auth/transactingBranch'))
+const TransactingBranch = React.lazy(
+  () => import('./views/auth/transactingBranch/transactingBranch'),
+)
 const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))

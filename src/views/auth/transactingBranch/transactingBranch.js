@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { CContainer } from '@coreui/react'
 import Phamacore from '../../assets/images/pcico.png'
-import AccountingTills from '../../UI/tills/tills'
+import AccountingTills from '../../../UI/tills/tills'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { AlertErrorArrayResponse } from '../../UI/alerts/alertResponse'
-import { ValidateBranch } from '../../services/system_Services'
+import { AlertErrorArrayResponse } from '../../../UI/alerts/alertResponse'
+import { ValidateBranch } from '../../../services/system_Services'
 import toast from 'react-hot-toast'
 import { useMutation } from '@tanstack/react-query'
-import { Logout } from '../../services/auth_Services'
+import { Logout } from '../../../services/auth_Services'
 
 function TransactingBranch() {
   if (!localStorage.getItem('token')) return <Navigate to="/" replace={true} />
