@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CContainer } from '@coreui/react'
-import Phamacore from '../../assets/images/pcico.png'
+import Phamacore from '../../../assets/images/pcico.png'
 import AccountingTills from '../../../UI/tills/tills'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
