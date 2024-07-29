@@ -13,31 +13,28 @@ function FilterButton({ onClick }) {
     </button>
   )
 }
-
-function DeleteTransactionButton({ text, onClick }) {
+function NewTransactionButton({ type, text }) {
+  return (
+    <button type={type} style={{ width: '5rem' }} className="btn btn-sm add-btn me-1">
+      {text}
+    </button>
+  )
+}
+function EditTransactionButton({ text }) {
+  return (
+    <button type="button" style={{ width: '5rem' }} className="btn btn-sm edit-btn me-1">
+      {text}
+    </button>
+  )
+}
+function DeleteTransactionButton({ type, text, onClick }) {
   return (
     <button
-      type="button"
+      type={type}
       style={{ width: '5rem' }}
       className="btn btn-sm delete-btn me-1"
       onClick={onClick}
     >
-      {text}
-    </button>
-  )
-}
-
-function NewTransactionButton({ text }) {
-  return (
-    <button type="button" style={{ width: '5rem' }} className="btn btn-sm add-btn me-1">
-      {text}
-    </button>
-  )
-}
-
-function EditTransactionButton({ text }) {
-  return (
-    <button type="button" style={{ width: '5rem' }} className="btn btn-sm edit-btn me-1">
       {text}
     </button>
   )
@@ -64,12 +61,14 @@ FilterButton.propTypes = {
 }
 NewTransactionButton.propTypes = {
   text: PropTypes.string,
+  type: PropTypes.string,
 }
 EditTransactionButton.propTypes = {
   text: PropTypes.string,
 }
 DeleteTransactionButton.propTypes = {
   text: PropTypes.string,
+  type: PropTypes.string,
   onClick: PropTypes.func,
 }
 

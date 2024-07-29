@@ -10,7 +10,8 @@ import { Toaster } from 'react-hot-toast'
 
 import 'core-js'
 // import 'bootstrap/dist/css/bootstrap.min.css'
-import 'primereact/resources/themes/lara-light-cyan/theme.css'
+// import 'primereact/resources/themes/lara-light-cyan/theme.css'
+import 'primereact/resources/themes/fluent-light/theme.css'
 import 'react-datepicker/dist/react-datepicker.css'
 
 // Create a client

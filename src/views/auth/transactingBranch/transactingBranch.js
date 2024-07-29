@@ -16,6 +16,7 @@ function TransactingBranch() {
   document.title = 'Validate Branch | phAMACore Cloud'
 
   const [ErrorArray, setErrorArray] = useState([])
+  const [isTillsOpen, SetIsTillsOpen] = useState(false)
 
   const navigate = useNavigate()
 
@@ -32,7 +33,14 @@ function TransactingBranch() {
     mutationFn: (data) => ValidateBranch(data),
     onSuccess: () => {
       toast.success('Branch validation successfull')
-      navigate('/dashboard', { replace: true })
+      navigate('/sales-analysis/sales-dasboard', { replace: true })
+    },
+    onError: (error) => {
+      console.log(error)
+      toast.error('An error occured processing your current request!', {
+        duration: 5000,
+      })
+      setErrorArray([...error.message?.split(',')])
     },
   })
 

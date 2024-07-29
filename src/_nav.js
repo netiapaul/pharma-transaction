@@ -1,35 +1,7 @@
 import React from 'react'
-import CIcon from '@coreui/icons-react'
-import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
-  cilCursor,
-  cilDescription,
-  cilDrop,
-  cilNotes,
-  cilPencil,
-  cilPuzzle,
-  cilSpeedometer,
-  cilStar,
-} from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { CNavGroup, CNavItem } from '@coreui/react'
 
 const _nav = [
-  // {
-  //   component: CNavItem,
-  //   name: 'Dashboard',
-  //   to: '/dashboard',
-  //   icon: <i className="nav-icon mdi mdi-tablet-dashboard"></i>,
-  //   badge: {
-  //     color: 'info',
-  //     text: 'NEW',
-  //   },
-  // },
-  // {
-  //   component: CNavTitle,
-  //   name: 'Theme',
-  // },
   {
     component: CNavGroup,
     name: 'phAMACore Analysis',
@@ -38,7 +10,7 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Dashboard',
-        to: '/dashboard',
+        to: '/sales-analysis/sales-dasboard',
         badge: {
           color: 'info',
           text: 'NEW',

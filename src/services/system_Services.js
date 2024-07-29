@@ -124,13 +124,12 @@ export async function ValidateBranch(userData) {
     GetAvailableTills(userData?.bcode)
     // GetExpiryDate(userData?.bcode)
     console.log(response)
-    return response
+    return response.data
   } catch (error) {
     console.log(error)
     return handleErrors(error)
   }
 }
-
 /**
  * Returns All dashboard analysis of the company
  * @returns {Object} All dashboard analysis
@@ -151,7 +150,7 @@ export async function GetSalesAnalysis(userData) {
       },
     })
     console.log(response)
-    return response
+    return response.data
   } catch (error) {
     console.log(error)
     return handleErrors(error)

@@ -5,7 +5,7 @@ const Branches = React.lazy(() => import('./views/setups/systems/branches'))
 const Charts = React.lazy(() => import('./views/charts/Charts'))
 
 // Dashboard
-const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
+const SalesAnalysisDashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const ProfitPicture = React.lazy(() => import('./views/dashboard/profitPicture'))
 const StockAnalysis = React.lazy(() => import('./views/dashboard/stockAnalysis'))
 const BranchAnalysis = React.lazy(() => import('./views/dashboard/branchAnalysis'))
@@ -17,8 +17,8 @@ const CreateSalesInvoice = React.lazy(
 )
 
 const analysis = [
-  { path: '/dashboard', exact: true, name: 'Dashboard' },
-  { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/sales-analysis', exact: true, name: 'Dashboard' },
+  { path: '/sales-analysis/sales-dasboard', name: 'Dashboard', element: SalesAnalysisDashboard },
   { path: '/profit-picture', exact: true, name: 'ProfitPicture' },
   { path: '/profit-picture/profit-picture', name: 'ProfitPicture', element: ProfitPicture },
   { path: '/stock-analysis', exact: true, name: 'StockAnalysis' },

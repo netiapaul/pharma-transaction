@@ -1,4 +1,5 @@
 // Here you can add other styles
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 $body-bg-color: #eef5f9;
@@ -19,6 +20,11 @@ body {
     font-family: "Poppins", sans-serif !important;
     font-size: 12px !important;
     background-color: #f5f5f9 !important;
+    // PRIME REACT CSS
+    margin: 0px;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 // div:empty {
@@ -425,55 +431,76 @@ input:checked {
     font-size: 11px !important;
 }
 
+.batched-doc {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: $success-color;
+    margin: auto;
+
+}
+
+.unbatched-doc {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: $company-color;
+    margin: auto;
+}
+
+.verified-status-pill {
+    color: #ffffff !important;
+    background-color: $company-color !important;
+    font-size: 10px !important;
+    font-weight: normal !important;
+}
+
+.unverified-status-pill {
+    color: #ffffff !important;
+    background-color: $danger-color !important;
+    font-size: 10px !important;
+    font-weight: normal !important;
+}
+
 .react-datepicker-wrapper {
     display: block !important;
 }
 
-// .MuiInputBase-root {
-//     font-family: "Poppins", sans-serif !important;
-//     font-size: 12px !important;
-//     text-transform: uppercase !important;
-//     padding: 0 4px 0 4px !important;
-// }
-
-// .css-i4bv87-MuiSvgIcon-root {
-//     font-size: 13px !important;
-// }
-
-// .MuiFormLabel-root .MuiInputLabel-root {
-//     font-size: 12px !important;
-// }
-
-// .MuiTable-root {
-//     // border: .5px solid rgba(81, 81, 81, 0) !important;
-//     border: none !important;
-// }
-
-// .MuiTableCell-head {
-//     font-family: "Poppins", sans-serif !important;
-//     font-size: 10px !important;
-//     padding: 5px !important;
-//     // padding-left: 5px !important;
-//     // padding-right: 5px !important;
-//     //
-//     background-color: rgb(229, 229, 229) !important;
-//     font-weight: 600 !important;
-//     border: .25px solid rgb(189, 186, 186) !important;
-//     line-height: 1 !important;
-//     box-shadow: none !important;
-// }
-
-// .MuiTableRow-root td {
-//     font-family: "Poppins", sans-serif !important;
-//     font-size: 10px !important;
-//     padding: 0px !important;
-//     padding-left: 5px !important;
-//     padding-right: 5px !important;
-//     line-height: 2 !important;
-//     border: .25px solid #dedede !important;
-// }
+.react-datepicker-popper {
+    z-index: 60 !important;
+}
 
 // PRIME REACT
+// .search-field-input::before {
+//     content: '\eb2d';
+// }
+
+.search-field-input {
+    box-sizing: border-box;
+    background-color: rgba(229, 229, 229, 0.5);
+    // padding-left: 36px;
+    // background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
+    // background-size: 15px;
+    // background-position-x: 10px;
+    // background-position-y: 50%;
+    width: 200px;
+    border-radius: 3px;
+}
+
+.search-field-input::placeholder {
+    font-size: 12px !important;
+    color: rgb(187, 187, 187) !important;
+}
+
+.p-datatable .p-datatable-header {
+    background: #ffffff;
+    color: #323130;
+    border: 1px solid #ffffff00;
+    border-width: 1px 0 1px 0;
+    padding: 0 0 .75rem 0;
+    font-weight: 600;
+}
+
 
 .p-inputtext {
     font-size: 12px !important;
@@ -503,14 +530,15 @@ input:checked {
     font-size: 10px !important;
     padding: 0.35rem 0.35rem !important;
     background-color: rgb(229, 229, 229) !important;
-    color: #000000DE !important;
+    color: #000000 !important;
 }
 
 .p-datatable.p-datatable-sm .p-datatable-tbody>tr>td {
     font-family: "Poppins", sans-serif !important;
     font-size: 10px !important;
-    padding: 0.25rem 0.25rem !important;
-    color: #000000DE !important;
+    // padding: 0.25rem 0.25rem !important;
+    padding: 0.2rem 0.2rem !important;
+    color: #000000 !important;
 }
 
 .p-datatable .p-datatable-tbody>tr.p-highlight {
@@ -529,6 +557,21 @@ input:checked {
     border: 1px solid #e5e7eb;
 }
 
+// .p-paginator .p-paginator-current {
+//     font-size: 12px;
+// }
+
+.p-paginator {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
+
+.p-dropdown-items-wrapper .p-dropdown-items {
+    padding-left: 0;
+}
 
 // FOOTER
 
