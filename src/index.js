@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 
 import 'core-js'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import 'primereact/resources/themes/lara-light-cyan/theme.css'
 import 'react-datepicker/dist/react-datepicker.css'
 

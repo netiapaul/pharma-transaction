@@ -70,7 +70,7 @@ const Login = () => {
           <div className="col-md-6 col-lg-6 col-xl-4">
             <AlertSuccessResponse success={location.state?.success} />
             {Boolean(ErrorArray?.length) && <AlertErrorArrayResponse ErrorArray={ErrorArray} />}
-            <div className="card shadow-sm">
+            <div className="card shadow-sm border-0">
               <div className="auth-bg-banner text-center">
                 <div className="text-dark p-4">
                   <img src={ProductImage} className="img-fluid" width="100" alt="brand" />
